@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Preparation Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: #fefefe;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #ffffff;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #0078d7;
+        }
+
+        section {
+            padding: 4rem 1rem;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .block {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .block h3 {
+            margin-top: 0;
+            color: #0078d7;
+        }
+
+        .qa-item {
+            border-top: 1px solid #eee;
+            padding: 1rem 0;
+        }
+
+        .question {
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+
+        .question::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 1.2rem;
+            color: #0078d7;
+            transition: transform 0.3s ease;
+        }
+
+        .question.open::after {
+            content: "–";
+        }
+
+        .answer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+            padding-left: 1rem;
+            border-left: 3px solid #0078d7;
+            margin-top: 0.5rem;
+            color: #444;
+        }
+
+        .answer.show {
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Navbar Base */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Left Menu */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu li a:hover {
+            color: #0078D4;
+        }
+
+        /* Center Logo */
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #222;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-logo img {
+            height: 32px;
+        }
+
+        /* Right Button */
+        .nav-right .nav-button {
+            background-color: #0078D4;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-right .nav-button:hover {
+            background-color: #005fa3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-left,
+            .nav-right {
+                display: none;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .nav-center {
+                position: static;
+                transform: none;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Logo Styling */
+        .nav-logo img {
+            height: 60px;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        /* Emoji Styling */
+        .emoji-icon {
+            font-size: 1.4cm;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emoji-icon:hover {
+            content: "😄";
+            font-size: 1.4cm;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        footer a:hover {
+            color: #00bcd4;
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00bcd4;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1.5rem;
+            /* Reduced vertical padding */
+            height: 60px;
+            /* Compact height */
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .logo {
+            font-size: 1.2rem;
+            /* Slightly smaller logo text */
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.2rem;
+            /* Tighter spacing between links */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-size: 0.95rem;
+            /* Reduced font size */
+            color: #333;
+            padding: 0.25rem 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        blockquote {
+            position: relative;
+            z-index: 2;
+            padding: 1rem;
+            color: white;
+            /* Ensures the story text is white */
+            font-size: 0.95rem;
+            background: rgba(250, 249, 249, 0.4);
+            /* Optional: adds contrast for readability */
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0078d7;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .loko-name {
+            background-color: transparent;
+            color: #fff;
+            font-size: 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            /* Optional for contrast */
+        }
+
+        #hero-section {
+            position: relative;
+            background: linear-gradient(to right, #eef2f3, #ffffff);
+            padding: 4rem 1rem;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+            z-index: 1;
+        }
+
+        #bubble-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 2rem;
+            color: #0078d7;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
+        .hero-text button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-text button:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-center">
+                <a href="index.html" class="nav-logo">
+                    <img src="https://copilot.microsoft.com/th/id/BCO.9d61c587-f691-4c92-9a35-4cb420bf7a57.png"
+                        alt="CareerConnect Logo" />
+                    <span class="logo-text">CareerConnect</span>
+                </a>
+            </div>
+
+            <div class="nav-right">
+                <div class="emoji-icon" id="emoji" title="Feeling good!">🙂</div>
+            </div>
+        </div>
+    </header>
+    <section id="hero-section">
+        <div class="hero-content">
+            <canvas id="bubble-canvas"></canvas>
+            <div class="hero-text">
+                <h1>Launch Your Career with Confidence</h1>
+                <p>Explore curated interview prep, role-specific questions, and expert tips—all in one place.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="questions">
+        <h2>🧠Interview Questions</h2>
+
+        <div class="block fade-in">
+            <h3>SDE / SWE</h3>
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    What are SOLID principles?
+                </div>
+                <div class="answer">
+                    SOLID stands for five key OOP principles: SRP, OCP, LSP, ISP, DIP.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Design a URL shortener.
+                </div>
+                <div class="answer">
+                    Use hashing, key-value storage, and redirection logic to map short codes to full URLs.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Difference between stack and queue?
+                </div>
+                <div class="answer">
+                    Stack is LIFO (last in, first out); queue is FIFO (first in, first out).
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    How do you debug a production issue?
+                </div>
+                <div class="answer">
+                    Use logs, breakpoints, and binary search to isolate and resolve the issue efficiently.
+                </div>
+            </div>
+        </div>
+
+        <div class="block fade-in">
+            <h3>Data Analyst</h3>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    How do you handle missing data?
+                </div>
+                <div class="answer">
+                    Use imputation, deletion, or predictive modeling depending on context and data type.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Inner vs outer join?
+                </div>
+                <div class="answer">
+                    Inner joins return matched rows; outer joins include unmatched rows from one or both tables.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    How to visualize trends over time?
+                </div>
+                <div class="answer">
+                    Use line charts, area charts, or time series plots to show patterns and changes.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Describe a data-driven decision project.
+                </div>
+                <div class="answer">
+                    Showcase how your analysis led to measurable business impact or strategic change.
+                </div>
+            </div>
+        </div>
+
+        <div class="block fade-in">
+            <h3>Data Scientist</h3>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    What is overfitting?
+                </div>
+                <div class="answer">
+                    Overfitting means the model memorizes noise; prevent it with regularization or more data.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Bias-variance tradeoff?
+                </div>
+                <div class="answer">
+                    Bias is error from assumptions; variance is error from sensitivity to data fluctuations.
+                </div>
+            </div>
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    How to evaluate classification models?
+                </div>
+                <div class="answer">
+                    Use metrics like accuracy, precision, recall, F1-score, and ROC-AUC depending on the context.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Metrics for recommendation systems?
+                </div>
+                <div class="answer">
+                    Use precision@k, recall@k, NDCG, and mean reciprocal rank to evaluate recommendations.
+                </div>
+            </div>
+        </div>
+
+        <div class="block fade-in">
+            <h3>DevOps</h3>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    What is DevOps?
+                </div>
+                <div class="answer">
+                    DevOps integrates development and operations to improve collaboration and accelerate delivery.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Explain CI/CD pipeline.
+                </div>
+                <div class="answer">
+                    CI/CD automates code integration, testing, and deployment for faster and safer releases.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Docker vs Kubernetes?
+                </div>
+                <div class="answer">
+                    Docker packages applications into containers; Kubernetes manages and scales those containers.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    What is shift-left testing?
+                </div>
+                <div class="answer">
+                    Shift-left testing means testing earlier in the development cycle to catch issues sooner.
+                </div>
+            </div>
+        </div>
+
+        <div class="block fade-in">
+            <h3>UI/UX Designer</h3>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Difference between UI and UX?
+                </div>
+                <div class="answer">
+                    UI focuses on visual design and layout; UX focuses on user experience and interaction flow.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Wireframe vs mockup?
+                </div>
+                <div class="answer">
+                    Wireframes are structural blueprints; mockups are detailed visual representations of the interface.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    How do you improve UX?
+                </div>
+                <div class="answer">
+                    Conduct user research, usability testing, and iterate designs based on feedback and analytics.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Why is accessibility important?
+                </div>
+                <div class="answer">
+                    Accessibility ensures that all users, including those with disabilities, can use your product.
+                </div>
+            </div>
+        </div>
+        <div class="block fade-in">
+            <h3>Product Manager</h3>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    What does a PM do?
+                </div>
+                <div class="answer">
+                    A PM defines product vision, prioritizes features, and aligns teams to deliver user value.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    How do you prioritize features?
+                </div>
+                <div class="answer">
+                    Use frameworks like RICE, MoSCoW, or Kano to balance impact, effort, and urgency.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Key metrics for product success?
+                </div>
+                <div class="answer">
+                    Track retention, engagement, NPS, conversion rate, and revenue growth.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    How do you handle trade-offs?
+                </div>
+                <div class="answer">
+                    Balance user needs, technical feasibility, and business goals through stakeholder alignment.
+                </div>
+            </div>
+        </div>
+
+        <div class="block fade-in">
+            <h3>QA Engineer</h3>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    What is smoke testing?
+                </div>
+                <div class="answer">
+                    Smoke testing checks basic functionality before deeper testing begins.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    What is regression testing?
+                </div>
+                <div class="answer">
+                    Regression testing ensures new changes don’t break existing features.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    Why use automation in QA?
+                </div>
+                <div class="answer">
+                    Automation speeds up testing, improves coverage, and reduces human error.
+                </div>
+            </div>
+
+            <div class="qa-item">
+                <div class="question" onclick="toggleAnswer(this)">
+                    How do you report bugs?
+                </div>
+                <div class="answer">
+                    Use bug tracking tools with clear steps, severity, screenshots, and expected vs actual behavior.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tips">
+        <h2>🎯Tips & Etiquette</h2>
+
+        <div class="block fade-in">
+            <h3>👔 Attire</h3>
+            <p>Dress professionally—light shirt, dark pants/skirt, minimal accessories, and polished shoes.</p>
+        </div>
+
+        <div class="block fade-in">
+            <h3>🧍‍♂️ Body Language</h3>
+            <p>Maintain eye contact, sit upright, smile naturally, and use gestures sparingly.</p>
+        </div>
+
+        <div class="block fade-in">
+            <h3>🗣️ Response Strategy</h3>
+            <p>Use the STAR method: Situation, Task, Action, Result. Be concise and confident.</p>
+        </div>
+
+        <div class="block fade-in">
+            <h3>⏱️ Time Management</h3>
+            <p>Arrive 10–15 minutes early and pace your answers to avoid rushing or rambling.</p>
+        </div>
+
+        <div class="block fade-in">
+            <h3>📚 Research</h3>
+            <p>Know the company’s mission, recent news, and your interviewer’s role if possible.</p>
+        </div>
+
+        <div class="block fade-in">
+            <h3>🙏 Gratitude</h3>
+            <p>End with a thank-you and follow up with a polite email expressing your interest.</p>
+        </div>
+        <button id="backToTop" onclick="scrollToSection('questions')">↑ Top</button>
+    </section>
+    <footer>
+        <p>&copy; 2025 Smart Job Portal</p>
+        <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="copyright.html">Privacy Policy</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        function toggleAnswer(el) {
+            const answer = el.nextElementSibling;
+            const isOpen = answer.classList.contains('show');
+            document.querySelectorAll('.answer').forEach(a => a.classList.remove('show'));
+            document.querySelectorAll('.question').forEach(q => q.classList.remove('open'));
+            if (!isOpen) {
+                answer.classList.add('show');
+                el.classList.add('open');
+            }
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // Smooth scroll function
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Emoji hover effect
+        const emoji = document.getElementById("emoji");
+        if (emoji) {
+            emoji.addEventListener("mouseover", () => emoji.textContent = "😄");
+            emoji.addEventListener("mouseout", () => emoji.textContent = "🙂");
+        }
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.body.scrollHeight;
+
+            if (scrollY + windowHeight >= documentHeight - 50) {
+                document.querySelectorAll('#features, #about').forEach(section => {
+                    section.style.opacity = '1';
+                    section.style.pointerEvents = 'auto';
+                });
+            }
+        });
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Optional: simple bubble animation
+        const canvas = document.getElementById('bubble-canvas');
+        const ctx = canvas.getContext('2d');
+        let bubbles = [];
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+
+        function createBubble() {
+            return {
+                x: Math.random() * canvas.width,
+                y: canvas.height + 10,
+                radius: Math.random() * 6 + 2,
+                speed: Math.random() * 1 + 0.5,
+                opacity: Math.random() * 0.5 + 0.3
+            };
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+
+    </script>
+</body>
+
+</html>

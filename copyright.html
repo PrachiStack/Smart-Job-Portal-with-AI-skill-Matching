@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copyright | CareerConnect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .nav-menu li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-menu li a:hover {
+      color: #0078D4;
+    }
+
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #222;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .nav-logo img {
+      height: 60px;
+    }
+
+    .logo-text {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #222;
+    }
+
+    .emoji-icon {
+      font-size: 1.4cm;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .content {
+      padding: 4rem 2rem;
+    }
+
+    .content h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: #222;
+    }
+
+    .content p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cat-img {
+      width: 200px;
+      margin: 2rem auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-left">
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+            <div class="nav-center">
+        <a href="index.html" class="nav-logo">
+          <img src="https://copilot.microsoft.com/th/id/BCO.9d61c587-f691-4c92-9a35-4cb420bf7a57.png" alt="CareerConnect Logo" />
+          <span class="logo-text">CareerConnect</span>
+        </a>
+      </div>
+      <div class="nav-right">
+        <div class="emoji-icon" id="emoji" title="Feeling good!">🙂</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="content">
+    <h2>Copyright & Licensing</h2>
+    <p>
+      All content on CareerConnect—including text, graphics, code, and branding—is protected under applicable copyright laws.
+      Unauthorized reproduction, distribution, or modification of any part of this site is strictly prohibited.
+      If you’re unsure whether your use is permitted, please reach out to our team for clarification.
+    </p>
+
+    <img src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.jpg" alt="Copyright Cat" class="cat-img" />
+
+    <p style="font-size: 1rem; color: #555;">
+      This cat is watching you. Respect the copyright, or it might file a DMCA nap on your behalf. 🐾
+    </p>
+  </section>
+
+  <footer style="background-color: #1a1a1a; color: #ccc; text-align: center; padding: 2rem;">
+    <p style="font-weight: bold;">&copy; 2025 CareerConnect</p>
+    <ul style="list-style: none; display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; padding: 0;">
+      <li><a href="contact.html" style="color: #ccc; text-decoration: none; font-size: 0.9rem;">Contact</a></li>
+      <li><a href="copyright.html" style="color: #ccc; text-decoration: none; font-size: 0.9rem;">Privacy Policy</a></li>
+    </ul>
+  </footer>
+    <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    const emoji = document.getElementById("emoji");
+    if (emoji) {
+      emoji.addEventListener("mouseover", () => emoji.textContent = "😺");
+      emoji.addEventListener("mouseout", () => emoji.textContent = "🙂");
+    }
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.body.scrollHeight;
+
+      if (scrollY + windowHeight >= documentHeight - 50) {
+        document.querySelectorAll('.content').forEach(section => {
+          section.style.opacity = '1';
+          section.style.pointerEvents = 'auto';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

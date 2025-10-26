@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            background: #010f4f;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .landing-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-wrapper {
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-wrapper:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .animated-logo {
+            width: 150px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 5px rgb(0, 255, 255));
+            }
+
+            50% {
+                transform: scale(1.2);
+                filter: drop-shadow(0 0 20px rgb(0, 17, 255));
+            }
+
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 5px rgb(0, 255, 255));
+            }
+        }
+
+        canvas#bgCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="landing-container">
+        <canvas id="bgCanvas"></canvas>
+        <div class="logo-wrapper" onclick="redirectToHome()" title="Click to enter">
+            <img src="cc-logo.png" alt="Logo" class="animated-logo" />
+        </div>
+    </div>
+
+    <script>
+        function redirectToHome() {
+            window.location.href = "index.html";
+        }
+
+        const canvas = document.getElementById("bgCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let mouse = { x: null, y: null };
+        window.addEventListener("mousemove", e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        let particles = [];
+        const particleCount = Math.floor(100 * 1.2); // 120 particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 2 + 1,
+                dx: (Math.random() - 0.5) * 0.5,
+                dy: (Math.random() - 0.5) * 0.5
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0ff";
+
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.x += p.dx;
+                p.y += p.dy;
+
+                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+                // Draw bold white line to mouse if close
+                if (mouse.x && mouse.y) {
+                    const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = `rgba(255,255,255,${1 - dist / 120})`;
+                        ctx.lineWidth = 1.2; // Bolder line
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(drawParticles);
+        }
+
+        drawParticles();
+    </script>
+</body>
+
+</html>

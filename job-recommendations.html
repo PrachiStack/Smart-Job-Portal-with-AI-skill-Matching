@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Recommendations | CareerConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu li a:hover {
+            color: #0078D4;
+        }
+
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #222;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-logo img {
+            height: 60px;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .emoji-icon {
+            font-size: 1.4cm;
+            line-height: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .welcome-section {
+            background: linear-gradient(to right, #00bcd4, #2196f3);
+            color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .skills-section {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .job-listings {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .job-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .job-title {
+            font-size: 1.5rem;
+            color: #2196f3;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-company {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .match-score {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .job-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .job-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .job-description {
+            margin: 1rem 0;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .job-requirements {
+            margin: 1rem 0;
+        }
+
+        .requirements-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .matched-skills {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 0.3rem;
+        }
+
+        .apply-button {
+            background: linear-gradient(135deg, #2196f3, #00bcd4);
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .apply-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .no-jobs {
+            text-align: center;
+            padding: 3rem;
+            background: #fff;
+            border-radius: 10px;
+            color: #666;
+        }
+
+        .category-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 0;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav-center">
+                <a href="index.html" class="nav-logo">
+                    <img src="https://copilot.microsoft.com/th/id/BCO.9d61c587-f691-4c92-9a35-4cb420bf7a57.png" alt="CareerConnect Logo" />
+                    <span class="logo-text">CareerConnect</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <div class="emoji-icon" id="emoji">🙂</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="content">
+            <!-- Content will be dynamically generated -->
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-weight: bold;">&copy; 2025 CareerConnect</p>
+        <ul class="footer-links">
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="copyright.html">Privacy Policy</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        // Job listings database
+        const jobListings = [
+            {
+                title: "Full Stack Developer",
+                company: "TechCorp Inc.",
+                location: "San Francisco, CA",
+                type: "Full-time",
+                salary: "$100,000 - $130,000",
+                matchScore: 0,
+                requiredSkills: ["javascript", "react", "node.js", "html", "css", "git"],
+                description: "We're looking for an experienced Full Stack Developer to join our team. You'll work on cutting-edge web applications using modern JavaScript frameworks."
+            },
+            {
+                title: "Python Developer",
+                company: "DataLabs",
+                location: "Remote",
+                type: "Full-time",
+                salary: "$90,000 - $120,000",
+                matchScore: 0,
+                requiredSkills: ["python", "django", "flask", "sql", "git"],
+                description: "Join our data science team to build scalable backend services and APIs using Python. Experience with Django/Flask is essential."
+            },
+            {
+                title: "Frontend Developer",
+                company: "WebSolutions",
+                location: "New York, NY",
+                type: "Full-time",
+                salary: "$85,000 - $110,000",
+                matchScore: 0,
+                requiredSkills: ["javascript", "react", "vue", "html", "css", "figma"],
+                description: "Create beautiful and responsive user interfaces for our client applications. Strong skills in React or Vue required."
+            },
+            {
+                title: "DevOps Engineer",
+                company: "CloudTech",
+                location: "Austin, TX",
+                type: "Full-time",
+                salary: "$110,000 - $140,000",
+                matchScore: 0,
+                requiredSkills: ["aws", "docker", "kubernetes", "jenkins", "linux", "bash"],
+                description: "Manage our cloud infrastructure and CI/CD pipelines. Experience with AWS, Docker, and Kubernetes essential."
+            },
+            {
+                title: "Data Scientist",
+                company: "Analytics Pro",
+                location: "Boston, MA",
+                type: "Full-time",
+                salary: "$105,000 - $135,000",
+                matchScore: 0,
+                requiredSkills: ["python", "machine learning", "pandas", "numpy", "data analysis", "sql"],
+                description: "Analyze complex datasets and build ML models to drive business decisions. Strong Python and ML skills required."
+            },
+            {
+                title: "Mobile App Developer",
+                company: "AppWorld",
+                location: "Seattle, WA",
+                type: "Full-time",
+                salary: "$95,000 - $125,000",
+                matchScore: 0,
+                requiredSkills: ["android", "ios", "react native", "javascript", "mobile app"],
+                description: "Develop native and cross-platform mobile applications. Experience with Android/iOS or React Native required."
+            },
+            {
+                title: "Backend Developer",
+                company: "ServerTech",
+                location: "Remote",
+                type: "Full-time",
+                salary: "$95,000 - $125,000",
+                matchScore: 0,
+                requiredSkills: ["java", "spring", "mysql", "api development", "microservices"],
+                description: "Design and implement robust backend systems using Java and Spring framework. Database and API development experience needed."
+            },
+            {
+                title: "UI/UX Designer",
+                company: "DesignStudio",
+                location: "Los Angeles, CA",
+                type: "Full-time",
+                salary: "$80,000 - $105,000",
+                matchScore: 0,
+                requiredSkills: ["figma", "adobe xd", "ui design", "ux design", "prototyping"],
+                description: "Create intuitive and visually appealing user experiences. Proficiency in Figma and design thinking required."
+            },
+            {
+                title: "Machine Learning Engineer",
+                company: "AI Innovations",
+                location: "Remote",
+                type: "Full-time",
+                salary: "$120,000 - $150,000",
+                matchScore: 0,
+                requiredSkills: ["python", "tensorflow", "pytorch", "machine learning", "data analysis", "aws"],
+                description: "Build and deploy ML models for production systems. Deep learning and cloud deployment experience preferred."
+            },
+            {
+                title: "React Developer",
+                company: "Digital Solutions",
+                location: "Chicago, IL",
+                type: "Full-time",
+                salary: "$85,000 - $110,000",
+                matchScore: 0,
+                requiredSkills: ["react", "javascript", "html", "css", "git", "agile"],
+                description: "Build modern, interactive web applications using React. Strong frontend development skills and Git experience required."
+            }
+        ];
+
+        // Calculate match score based on skills
+        function calculateMatchScore(job, userSkills) {
+            const requiredSkills = job.requiredSkills.map(s => s.toLowerCase());
+            const userSkillsLower = userSkills.flat.map(s => s.toLowerCase());
+            
+            let matchedCount = 0;
+            for (const skill of requiredSkills) {
+                if (userSkillsLower.some(us => us.includes(skill) || skill.includes(us))) {
+                    matchedCount++;
+                }
+            }
+            
+            return Math.round((matchedCount / requiredSkills.length) * 100);
+        }
+
+        // Get matched skills
+        function getMatchedSkills(job, userSkills) {
+            const requiredSkills = job.requiredSkills.map(s => s.toLowerCase());
+            const userSkillsLower = userSkills.flat.map(s => s.toLowerCase());
+            
+            const matched = [];
+            for (const skill of requiredSkills) {
+                if (userSkillsLower.some(us => us.includes(skill) || skill.includes(us))) {
+                    matched.push(skill);
+                }
+            }
+            
+            return matched;
+        }
+
+        // Display content
+        function displayContent() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            
+            if (!userData) {
+                document.getElementById('content').innerHTML = `
+                    <div class="welcome-section">
+                        <h2>Welcome to CareerConnect!</h2>
+                        <p>No resume data found. Please <a href="resumeupload.html" style="color: #fff; text-decoration: underline;">upload your resume</a> first.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Calculate match scores
+            jobListings.forEach(job => {
+                job.matchScore = calculateMatchScore(job, userData.skills);
+            });
+
+            // Sort jobs by match score
+            const sortedJobs = jobListings.sort((a, b) => b.matchScore - a.matchScore);
+
+            // Display welcome and skills
+            let html = `
+                <div class="welcome-section">
+                    <h2>Welcome, ${userData.name}!</h2>
+                    <p>Based on your resume, we've matched you with the following opportunities:</p>
+                </div>
+
+                <div class="skills-section">
+                    <h3>Skills Detected from Your Resume:</h3>
+                    <div class="skills-tags" id="skillsContainer"></div>
+                </div>
+
+                <h2 style="margin-bottom: 1rem;">🎯 Recommended Job Opportunities</h2>
+                <div class="job-listings">
+            `;
+
+            if (sortedJobs[0].matchScore === 0) {
+                html += `
+                    <div class="no-jobs">
+                        <h3>No Matching Jobs Found</h3>
+                        <p>We couldn't find jobs matching your skills. Please try uploading a more detailed resume or contact us for assistance.</p>
+                    </div>
+                `;
+            } else {
+                sortedJobs.forEach(job => {
+                    const matchedSkills = getMatchedSkills(job, userData.skills);
+                    
+                    if (job.matchScore > 0) {
+                        html += `
+                            <div class="job-card">
+                                <div class="job-header">
+                                    <div>
+                                        <div class="job-title">${job.title}</div>
+                                        <div class="job-company">${job.company}</div>
+                                    </div>
+                                    <div class="match-score">${job.matchScore}% Match</div>
+                                </div>
+                                
+                                <div class="job-details">
+                                    <div class="job-detail">📍 ${job.location}</div>
+                                    <div class="job-detail">💼 ${job.type}</div>
+                                    <div class="job-detail">💰 ${job.salary}</div>
+                                </div>
+                                
+                                <div class="job-description">${job.description}</div>
+                                
+                                <div class="job-requirements">
+                                    <div class="requirements-title">Matched Skills:</div>
+                                    ${matchedSkills.map(skill => `<span class="matched-skills">${skill}</span>`).join('')}
+                                </div>
+                                
+                                <button class="apply-button" onclick="applyForJob('${job.title}', '${job.company}')">Apply Now</button>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            html += `</div>`;
+            document.getElementById('content').innerHTML = html;
+
+            // Display skills
+            const skillsContainer = document.getElementById('skillsContainer');
+            const categorizedSkills = userData.skills.categorized;
+            
+            for (const [category, skills] of Object.entries(categorizedSkills)) {
+                if (skills.length > 0) {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.innerHTML = `
+                        <div class="category-title">${category}</div>
+                        <div>${skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}</div>
+                    `;
+                    skillsContainer.appendChild(categoryDiv);
+                }
+            }
+        }
+
+        function applyForJob(title, company) {
+            alert(`Application submitted for ${title} at ${company}! Our team will contact you soon.`);
+        }
+
+        // Emoji animation
+        const emoji = document.getElementById("emoji");
+        if (emoji) {
+            emoji.addEventListener("mouseover", () => emoji.textContent = "😄");
+            emoji.addEventListener("mouseout", () => emoji.textContent = "🙂");
+        }
+
+        // Initialize
+        displayContent();
+    </script>
+</body>
+
+</html>
+

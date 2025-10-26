@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Job Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00bcd4;
+        }
+
+        section {
+            padding: 3rem 2rem;
+            border-bottom: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #222;
+            text-align: center;
+        }
+
+        section p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .hero {
+            background: linear-gradient(to right, #00bcd4, #2196f3);
+            color: #fff;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background-color: #fff;
+            color: #2196f3;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            margin: 0.5rem;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e0f7fa;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .steps div {
+            background-color: #f0f0f0;
+            padding: 1rem;
+            border-radius: 10px;
+            flex: 1;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        footer a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        footer a:hover {
+            color: #00bcd4;
+        }
+
+        #about-us {
+            background-color: #fff;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        #about-us h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+
+        #about-us p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-card {
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            padding: 2.5rem;
+            min-height: 350px;
+            /* Increased from 250px */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-card:hover {
+            background: linear-gradient(to right, #00bcd4, #2196f3);
+            color: #fff;
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-card p {
+            font-size: 1rem;
+        }
+
+        .about-cta p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-cta button {
+            background-color: #2196f3;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .about-cta button:hover {
+            background-color: #00bcd4;
+        }
+
+        .about-card img {
+            width: 50px;
+            margin: 0 auto 1rem auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover img {
+            transform: scale(1.1);
+        }
+
+        /* How It Works Section */
+        .how-it-works-section {
+            background-color: #f9f9f9;
+            padding: 60px 20px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 30px 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .step-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0078D4;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .step-description {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Navbar Base */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Left Menu */
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu li a:hover {
+            color: #0078D4;
+        }
+
+        /* Center Logo */
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #222;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-logo img {
+            height: 32px;
+        }
+
+        /* Right Button */
+        .nav-right .nav-button {
+            background-color: #0078D4;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-right .nav-button:hover {
+            background-color: #005fa3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-left,
+            .nav-right {
+                display: none;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .nav-center {
+                position: static;
+                transform: none;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Logo Styling */
+        .nav-logo img {
+            height: 60px;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        /* Emoji Styling */
+        .emoji-icon {
+            font-size: 1.4cm;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emoji-icon:hover {
+            content: "😄";
+            font-size: 1.4cm;
+        }
+
+        #features,
+        #about {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1.5rem;
+            /* Reduced vertical padding */
+            height: 60px;
+            /* Compact height */
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .logo {
+            font-size: 1.2rem;
+            /* Slightly smaller logo text */
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.2rem;
+            /* Tighter spacing between links */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            font-size: 0.95rem;
+            /* Reduced font size */
+            color: #333;
+            padding: 0.25rem 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        .scroll-description {
+            max-height: 120px;
+            overflow-y: auto;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid #ddd;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .scroll-description::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scroll-description::-webkit-scrollbar-thumb {
+            background-color: #2196f3;
+            border-radius: 10px;
+        }
+
+        .about-card img {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-center">
+                <a href="index.html" class="nav-logo">
+                    <img src="https://copilot.microsoft.com/th/id/BCO.9d61c587-f691-4c92-9a35-4cb420bf7a57.png"
+                        alt="CareerConnect Logo" />
+                    <span class="logo-text">CareerConnect</span>
+                </a>
+            </div>
+
+            <div class="nav-right">
+                <div class="emoji-icon" id="emoji" title="Feeling good!">🙂</div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>Smart Job Portal is more than just a platform — it's a movement to empower students and professionals through
+            intelligent career tools and inclusive tech innovation.</p>
+
+        <div class="about-grid">
+            <div class="about-card">
+                <img src="https://img.icons8.com/ios-filled/50/2196f3/goal.png" alt="Mission Icon" />
+                <h3>Our Mission</h3>
+                <div class="scroll-description">
+                    <p>
+                        We aim to bridge skill gaps using AI-powered matching and resume tools. Our platform helps users
+                        grow, connect, and succeed in competitive job markets by offering personalized guidance and
+                        smart career insights. <br><br>
+                        Our mission is rooted in accessibility, ensuring that every student and professional—regardless
+                        of background—can benefit from intuitive career-building resources. We believe in continuous
+                        learning, and our tools are designed to evolve with you. <br><br>
+                        Whether you're refining your resume, exploring new roles, or seeking mentorship, our mission is
+                        to support your journey with clarity, confidence, and community.
+                    </p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <img src="https://img.icons8.com/ios-filled/50/2196f3/conference-call.png" alt="Community Icon" />
+                <h3>Our Community</h3>
+                <div class="scroll-description">
+                    <p>
+                        Join 500+ learners, developers, and recruiters collaborating to build smarter career pathways.
+                        We foster inclusive tech spaces where mentorship, networking, and growth are at the heart of
+                        every interaction. <br><br>
+                        Our community thrives on shared experiences—from coding challenges and resume reviews to live
+                        workshops and peer feedback. We celebrate wins together and support each other through setbacks.
+                        <br><br>
+                        Whether you're a student seeking guidance or a mentor offering expertise, our community is your
+                        launchpad for meaningful connections and lifelong learning.
+                    </p>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <img src="https://img.icons8.com/ios-filled/50/2196f3/rocket.png" alt="Impact Icon" />
+                <h3>Our Impact</h3>
+                <div class="scroll-description">
+                    <p>
+                        From resume building to job discovery, we’ve helped hundreds launch their careers with
+                        confidence. Our tools and community support ensure every user feels empowered to take the next
+                        step. <br><br>
+                        We’ve seen students land internships, professionals switch industries, and mentors grow their
+                        networks—all through the Smart Job Portal. <br><br>
+                        Our impact is measured not just in numbers, but in stories: the first job offer, the
+                        breakthrough interview, the moment someone realizes their potential. That’s the legacy we’re
+                        building—one success story at a time.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-cta">
+            <p>Whether you're a student, mentor, or recruiter — there's a place for you here.</p>
+            <button>Join the Movement</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Smart Job Portal</p>
+        <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="copyright.html">Privacy Policy</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        // Smooth scroll function
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Emoji hover effect
+        const emoji = document.getElementById("emoji");
+        if (emoji) {
+            emoji.addEventListener("mouseover", () => emoji.textContent = "😄");
+            emoji.addEventListener("mouseout", () => emoji.textContent = "🙂");
+        }
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.body.scrollHeight;
+
+            if (scrollY + windowHeight >= documentHeight - 50) {
+                document.querySelectorAll('#about-us').forEach(section => {
+                    section.style.opacity = '1';
+                    section.style.pointerEvents = 'auto';
+                });
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

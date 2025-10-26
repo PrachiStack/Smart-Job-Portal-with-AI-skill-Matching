@@ -12,7 +12,8 @@ CareerConnect is designed to guide users through the process of job preparation.
 It includes:
 - Homepage / Landing Page – Introduces the platform  
 - Resume & Skill Matching Page – Helps users check job-role compatibility  
-- Interview Preparation Page – Provides tips and common interview questions  
+- Interview Preparation Page – Provides tips and common interview questions
+- Resume builder - Helps users to create a professional resume  
 
 ---
 
@@ -25,20 +26,7 @@ It includes:
 ---
 
 
-## Future Plans
 
-Later, we’ll rebuild the full version using **React + Backend** and include:
-
-* User login & authentication system
-* Database to save and manage resumes
-* AI-based skill matching and resume scoring system
-* Personalized job-role recommendations
-* Modern, responsive UI with animations
-* Unique and interactive features to stand out from standard job portals
-
-Our aim is to turn this into a **complete full-stack career platform** combining learning, skill analysis, and interview preparation — all in one app.
-
----
 
 ## License
 

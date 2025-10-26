@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Resume | CareerConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        form input,
+        form textarea,
+        form select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        form input:focus,
+        form textarea:focus {
+            border-color: #0078D4;
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+            outline: none;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu li a:hover {
+            color: #0078D4;
+        }
+
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #222;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .nav-logo img {
+            height: 60px;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .emoji-icon {
+            font-size: 1.4cm;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero {
+            background: linear-gradient(to right, #00bcd4, #2196f3);
+            color: #fff;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background-color: #2196f3;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            margin: 0.5rem;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00bcd4;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav-center">
+                <a href="index.html" class="nav-logo">
+                    <img src="https://copilot.microsoft.com/th/id/BCO.9d61c587-f691-4c92-9a35-4cb420bf7a57.png"
+                        alt="CareerConnect Logo" />
+                    <span class="logo-text">CareerConnect</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <div class="emoji-icon" id="emoji" title="Feeling good!">🙂</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>Upload Your Resume</h2>
+        <p>Submit your resume and personal details to get matched with the best opportunities.</p>
+    </section>
+
+    <section id="resume-upload" style="padding: 3rem 2rem; background-color: #fff; border-bottom: 1px solid #ddd;">
+        <h2 style="text-align: center; font-size: 2rem; margin-bottom: 1rem; color: #222;">Resume Submission</h2>
+        <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+            Please fill out your details and upload your resume in PDF format only.
+        </p>
+
+        <form id="resumeForm" onsubmit="return validateResumeForm(event)" style="max-width: 600px; margin: auto;">
+            <div style="margin-bottom: 1rem;">
+                <input type="text" id="fullName" name="fullName" placeholder="Full Name" required />
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="email" id="email" name="email" placeholder="Email Address" required />
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required />
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="url" id="linkedin" name="linkedin" placeholder="LinkedIn Profile (optional)" />
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <input type="file" id="resumeFile" name="resumeFile" accept=".pdf" required />
+            </div>
+            <button type="submit">Upload Resume</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+
+                <a href="resume.html"
+                    style="background-color: #0078D4; color: #fff; padding: 8px 14px; border-radius: 20px; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: background-color 0.3s ease;">
+                    Build Resume Instead
+                </a>
+            </div>
+        </form>
+
+    </section>
+
+
+    <div class="about-cta" style="text-align: center; padding: 2rem; background-color: #f0f0f0;">
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+            Your journey starts here. Submit your resume and let CareerConnect guide your next step.
+        </p>
+    </div>
+    <footer style="background-color: #1a1a1a; color: #ccc; text-align: center; padding: 2rem;">
+        <p style="font-weight: bold;">&copy; 2025 CareerConnect</p>
+        <ul style="list-style: none; display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; padding: 0;">
+            <li><a href="contact.html" style="color: #ccc; text-decoration: none; font-size: 0.9rem;">Contact</a></li>
+            <li><a href="copyright.html" style="color: #ccc; text-decoration: none; font-size: 0.9rem;">Privacy Policy</a>
+            </li>
+        </ul>
+    </footer>
+
+    <!-- PDF.js library for parsing resumes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
+    <script>
+        // Initialize PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // Skills database - commonly used skills
+        const skillKeywords = {
+            'Programming': ['python', 'java', 'javascript', 'typescript', 'c++', 'c#', 'go', 'rust', 'swift', 'kotlin', 'ruby', 'php', 'perl', 'scala', 'r'],
+            'Web Development': ['html', 'css', 'react', 'vue', 'angular', 'node.js', 'express', 'django', 'flask', 'spring', 'asp.net', 'laravel', 'wordpress'],
+            'Database': ['sql', 'mysql', 'postgresql', 'mongodb', 'redis', 'oracle', 'nosql', 'database design', 'queries'],
+            'Data Science': ['machine learning', 'data analysis', 'pandas', 'numpy', 'tensorflow', 'pytorch', 'scikit-learn', 'jupyter', 'data visualization'],
+            'Cloud & DevOps': ['aws', 'azure', 'gcp', 'docker', 'kubernetes', 'jenkins', 'ci/cd', 'terraform', 'ansible', 'bash', 'linux'],
+            'Mobile Development': ['android', 'ios', 'react native', 'flutter', 'xamarin', 'mobile app'],
+            'UI/UX': ['figma', 'adobe xd', 'sketch', 'ui design', 'ux design', 'wireframing', 'prototyping'],
+            'Testing': ['unit testing', 'integration testing', 'selenium', 'jest', 'junit', 'test automation', 'qa'],
+            'Version Control': ['git', 'github', 'gitlab', 'bitbucket', 'version control'],
+            'Agile/Scrum': ['agile', 'scrum', 'kanban', 'sprint', 'jira'],
+            'Analytics': ['power bi', 'tableau', 'excel', 'data analytics', 'business intelligence'],
+            'Networking': ['tcp/ip', 'networking', 'network security', 'cybersecurity']
+        };
+
+        async function extractTextFromPDF(file) {
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                let fullText = '';
+
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const textContent = await page.getTextContent();
+                    const pageText = textContent.items.map(item => item.str).join(' ');
+                    fullText += pageText + '\n';
+                }
+
+                return fullText;
+            } catch (error) {
+                console.error('Error extracting text from PDF:', error);
+                return '';
+            }
+        }
+
+        function extractSkills(text) {
+            const lowerText = text.toLowerCase();
+            const extractedSkills = {};
+            const allSkills = [];
+
+            // Check each category
+            for (const [category, skills] of Object.entries(skillKeywords)) {
+                extractedSkills[category] = [];
+                for (const skill of skills) {
+                    if (lowerText.includes(skill.toLowerCase())) {
+                        extractedSkills[category].push(skill);
+                        allSkills.push(skill);
+                    }
+                }
+            }
+
+            return {
+                categorized: extractedSkills,
+                flat: allSkills
+            };
+        }
+
+        async function validateResumeForm(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("fullName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const resume = document.getElementById("resumeFile").files[0];
+
+            if (!name || !email || !phone || !resume) {
+                alert("Please fill out all required fields and upload your resume.");
+                return false;
+            }
+
+            if (resume.type !== "application/pdf") {
+                alert("Only PDF files are allowed for resume upload.");
+                return false;
+            }
+
+            // Show loading message
+            const button = event.target.querySelector('button[type="submit"]');
+            const originalText = button.textContent;
+            button.textContent = 'Processing Resume...';
+            button.disabled = true;
+
+            try {
+                // Extract text from PDF
+                const resumeText = await extractTextFromPDF(resume);
+                
+                if (!resumeText) {
+                    alert("Unable to extract text from resume. Please try another PDF file.");
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    return false;
+                }
+
+                // Extract skills
+                const skills = extractSkills(resumeText);
+                
+                // Store data in localStorage and redirect to results page
+                const userData = {
+                    name,
+                    email,
+                    phone,
+                    linkedin: document.getElementById("linkedin").value.trim(),
+                    resumeText,
+                    skills
+                };
+                
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                // Redirect to job recommendations page
+                window.location.href = "job-recommendations.html";
+                
+            } catch (error) {
+                console.error('Error processing resume:', error);
+                alert("An error occurred while processing your resume. Please try again.");
+                button.textContent = originalText;
+                button.disabled = false;
+            }
+
+            return false;
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        const emoji = document.getElementById("emoji");
+        if (emoji) {
+            emoji.addEventListener("mouseover", () => emoji.textContent = "😄");
+            emoji.addEventListener("mouseout", () => emoji.textContent = "🙂");
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.body.scrollHeight;
+
+            if (scrollY + windowHeight >= documentHeight - 50) {
+                document.querySelectorAll('#resume-upload').forEach(section => {
+                    section.style.opacity = '1';
+                    section.style.pointerEvents = 'auto';
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
